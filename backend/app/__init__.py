@@ -5,6 +5,8 @@ from flask_jwt_extended import JWTManager
 
 
 
+
+
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
@@ -19,4 +21,6 @@ def create_app():
     migrate.init_app(app,db)
     jwt.init_app(app)
     
+    from app.routes.ping import ping_bp
+    app.register_blueprint(ping_bp)
     return app
