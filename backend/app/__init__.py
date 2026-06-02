@@ -20,7 +20,9 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app,db)
     jwt.init_app(app)
-    
-    from app.routes.ping import ping_bp
+   # print("DB URI:", app.config["SQLALCHEMY_DATABASE_URI"]) debug line to cehck database  url
+
+    from app import models
+    from app.routes.ping import ping_bp      
     app.register_blueprint(ping_bp)
     return app
