@@ -11,9 +11,9 @@ class Bug(db.Model):
     
     description = db.Column(db.Text, nullable = True)
     
-    status = db.Column(db.String(50), default = "open")
+    status = db.Column(db.Enum(['open','in_progress', 'resolved', 'closed']),name = 'bug_status', default = "open")
     
-    priority = db.Column(db.String(50), default = "medium")
+    priority = db.Column(db.Enum(['low', 'medium', 'high', 'critical']), name = 'bug_priority',default = "medium")
     
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable = False)
     
