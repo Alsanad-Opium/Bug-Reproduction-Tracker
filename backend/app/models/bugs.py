@@ -22,3 +22,14 @@ class Bug(db.Model):
     bugs = db.relationship("Bug", backref="project", lazy=True)
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
+    
+    
+    def to_dict(self):
+        return{
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "status": self.status,
+            "priority": self.priority,
+            "created_at": self.created_at
+        }
