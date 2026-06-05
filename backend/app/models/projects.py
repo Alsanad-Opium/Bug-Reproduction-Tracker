@@ -11,7 +11,7 @@ class Project(db.Model):
     
     description = db.Column(db.Text, nullable = True)
     
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     
     bugs = db.relationship("Bug", backref="project", lazy=True)
     
