@@ -24,5 +24,10 @@ def create_app():
 
     from app import models
     from app.routes.ping import ping_bp      
+    from app.routes.project_routes import project_bp
+    from app.routes.bug_routes import bugs_bp
+    
+    app.register_blueprint(project_bp)
     app.register_blueprint(ping_bp)
+    app.register_blueprint(bugs_bp)
     return app
