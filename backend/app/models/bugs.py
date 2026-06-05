@@ -4,32 +4,40 @@ from app import models
 
 
 class Bug(db.Model):
-    __tablename__ ="bug"
+    __tablename__ ="bugs"
     
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(100),nullable = False)
+    title = db.Column(db.String(100),nullable = False)
     
     description = db.Column(db.Text, nullable = True)
     
-    status = db.Column(db.Enum(['open','in_progress', 'resolved', 'closed']),name = 'bug_status', default = "open")
+    status = db.Column(
+    db.Enum('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED', name='bug_status'),
+    default='OPEN'
+)
+
+    priority = db.Column(
+    db.Enum('LOW', 'MEDIUM', 'HIGH', 'CRITICAL', name='bug_priority'),
+    default='MEDIUM'
+)
     
-    priority = db.Column(db.Enum(['low', 'medium', 'high', 'critical']), name = 'bug_priority',default = "medium")
-    
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable = False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
     
     assigned_to = db.Column(db.Integer, db.ForeignKey('user.id'))
     
-    bugs = db.relationship("Bug", backref="project", lazy=True)
+    
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
     
     def to_dict(self):
-        return{
-            "id": self.id,
-            "name": self.name,
-            "description": self.description,
-            "status": self.status,
-            "priority": self.priority,
-            "created_at": self.created_at
-        }
+        return {
+        "id": self.id,
+        "title": self.title,
+        "description": self.description,
+        "status": self.status,
+        "priority": self.priority,
+        "project_id": self.project_id,
+        "assigned_to": self.assigned_to,
+        "created_at": self.created_at.isoformat()
+    }

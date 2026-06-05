@@ -1,28 +1,28 @@
 from flask import Blueprint, request, jsonify
-import app as db
+from app import db
 from app.models.bugs import Bug
 
-bugs_bp = Blueprint('bugs',' __name__',url_prefix = '/api/bugs' )
+bugs_bp = Blueprint('bugs',__name__,url_prefix = '/api/bugs' )
 
-@bugs_bp.route('get_all_bugs', methods = ['GET'], strict_slashes = False)
+@bugs_bp.route('', methods = ['GET'], strict_slashes = False)
 
 def get_all_bugs():
     bugs = Bug.query.all()
     
-    if bugs is None:
+    if not bugs :
         return jsonify({"message":"No bugs found"}),404 # if db is empty
     return jsonify([bug.to_dict() for bug in bugs]), 200
 
 
 
-@bugs_bp.route('/get_bug/<int:id>', methods = ['GET'], strict_slashes = False)
+@bugs_bp.route('/<int:id>', methods = ['GET'], strict_slashes = False)
 def get_bug(id):
-    bug = Bug.query.get(id)
+    bug = db.session.get(Bug, id)
     if bug is None:
         return jsonify({"message":"Bug not found"}),404
     return jsonify(bug.to_dict()), 200
 
-@bugs_bp.route('/create_bug',methods = ['POST'], strict_slashes = False)
+@bugs_bp.route('',methods = ['POST'], strict_slashes = False)
 def create_bug():
     data = request.get_json()
     
@@ -31,7 +31,8 @@ def create_bug():
     
     bug = Bug(name = data['name'],
                       description = data['description'], 
-                      owner_id = data['owner_id']
+                      project_id = data['project_id'],
+                      assigned_to = data.get('assigned_to')
     )
     db.session.add(bug)
     db.session.commit()
@@ -46,8 +47,12 @@ def update_bug_status(id):
         return jsonify({'message': 'bug not found'}),404
     
     data = request.get_json()
-    
-    bug.status = data.get('status', bug.status)
+    valid_status = ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"]
+
+    if data.get("status") not in valid_status:
+        return jsonify({"message": "Invalid status"}), 400
+
+    bug.status = data["status"]
     db.session.commit()
     
     return jsonify({'message': 'bug status updated sucessfully', 'bug': bug.to_dict()}),200
