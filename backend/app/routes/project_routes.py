@@ -4,12 +4,12 @@ from app.routes.auth import require_role
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.projects import Project
 
-project_bp = Blueprint('project_bp', '__name__', url_prefix = '/api/project')
+project_bp = Blueprint('project_bp', __name__, url_prefix = '/api/projects')
 
 
-@project_bp.route('/get_all_projects', methods = ['GET'], strict_slashes = False)
-@jwt_required()
+@project_bp.route('', methods = ['GET'], strict_slashes = False)
 @require_role('ADMIN','TESTER')
+@jwt_required()
 def get_all_projects():
     projects = Project.query.all()
     
@@ -20,24 +20,24 @@ def get_all_projects():
 
 
 
-@project_bp.route('/get_project/<int:id>', methods = ['GET'], strict_slashes = False)
-@jwt_required()
+@project_bp.route('/<int:id>', methods = ['GET'], strict_slashes = False)
 @require_role('ADMIN','TESTER','DEVELOPER')
+@jwt_required()
 def get_project(id):
-    project = Project.query.get(id)
+    project = db.session.get(Project,id)
     if project is None:
         return jsonify({"message":"Project not found"}),404
     return jsonify(project.to_dict()), 200
 
 
-@project_bp.route('/create_project',methods = ['POST'], strict_slashes = False)
-@jwt_required()
+@project_bp.route('',methods = ['POST'], strict_slashes = False)
 @require_role('ADMIN')
+@jwt_required()
 def create_project():
     data = request.get_json()
     
-    if not data or not data['name'] or not data['description'] or not data['owner_id']:
-        return jsonify({"message":"Missing required fields"}),400
+    if not data or not data['name'] or not data['description'] :
+        return jsonify({"message":"Missing required fields (Name and Description required )"}),400
     
     user_id = get_jwt_identity()
     project = Project(name = data['name'],
@@ -50,8 +50,8 @@ def create_project():
     return jsonify({'message': 'project created succesfully', 'project': project.to_dict()}),201
 
 @project_bp.route('/<int:id>',methods = ['PUT'], strict_slashes=False) 
-@jwt_required()
 @require_role('ADMIN')
+@jwt_required()
 def update_project(id):
     user_id = get_jwt_identity() 
     project = db.session.get(Project,id)
@@ -66,9 +66,7 @@ def update_project(id):
     
     project.name =  data.get('name',project.name)
     project.description = data.get('description',project.description)
-    project.owner_id = data.get('owner_id',project.owner_id)
-    
-    
+      
     db.session.add(project)
     db.session.commit()
     

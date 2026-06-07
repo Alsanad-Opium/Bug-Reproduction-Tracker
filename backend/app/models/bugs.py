@@ -10,6 +10,7 @@ class Bug(db.Model):
     title = db.Column(db.String(100),nullable = False)
     
     description = db.Column(db.Text, nullable = True)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
     
     status = db.Column(
     db.Enum('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED', name='bug_status'),
@@ -19,10 +20,7 @@ class Bug(db.Model):
     priority = db.Column(
     db.Enum('LOW', 'MEDIUM', 'HIGH', 'CRITICAL', name='bug_priority'),
     default='MEDIUM'
-)
-    
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
-    
+)       
     assigned_to = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     assignee = db.relationship(

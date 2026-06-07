@@ -1,4 +1,4 @@
-from flask_jwt_extended  import create_access_token,jwt_required, get_jwt_identity,get_jwt 
+from flask_jwt_extended  import create_access_token,jwt_required, get_jwt_identity,get_jwt,verify_jwt_in_request 
 from flask import Blueprint, request,jsonify
 from app import db,bcrypt
 from app.models.users import User
@@ -14,6 +14,7 @@ def require_role(*roles):
 
         @wraps(fn)
         def decorator(*args, **kwargs):
+            verify_jwt_in_request()
             claims = get_jwt()
             user_role = claims.get("role")
 
