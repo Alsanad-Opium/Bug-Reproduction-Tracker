@@ -12,7 +12,7 @@ class User(db.Model):
     #  Projects owned by user
     projects = db.relationship(
         "Project",
-        backref="owner",
+        back_populates="owner",
         lazy=True
     )
     # Bugs assigned to user

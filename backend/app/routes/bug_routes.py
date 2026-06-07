@@ -3,11 +3,13 @@ from app import db
 from app.models.bugs import Bug
 from app.models.projects import Project
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from app.routes.auth import require_role
 
 bugs_bp = Blueprint('bugs',__name__,url_prefix = '/api/bugs' )
 
 @bugs_bp.route('', methods = ['GET'], strict_slashes = False)
 @jwt_required()
+@require_role('ADMIN','TESTER')
 def get_all_bugs():
     user_id =get_jwt_identity()
     bugs = Bug.query.join(Project).filter(Project.owner_id == user_id).all()
@@ -20,6 +22,7 @@ def get_all_bugs():
 
 @bugs_bp.route('/<int:id>', methods = ['GET'], strict_slashes = False)
 @jwt_required()
+@require_role('ADMIN','TESTER')
 def get_bug(id):
     bug = db.session.get(Bug, id)
     if bug is None:
@@ -28,6 +31,7 @@ def get_bug(id):
 
 @bugs_bp.route('',methods = ['POST'], strict_slashes = False)
 @jwt_required()
+@require_role('ADMIN','TESTER','DEVELOPER')
 def create_bug():
     data = request.get_json()
     user_id =get_jwt_identity()
