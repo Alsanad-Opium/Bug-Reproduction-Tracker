@@ -1,12 +1,13 @@
 from app import db
 from datetime import datetime,timezone
+from bcrypt import generate_password_hash, check_password_hash
 
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(100), unique = True, nullable = False)
-    password = db.Column(db.String(100),nullable = False)
+    password_hash = db.Column(db.String(100),nullable = False)
     
     projects = db.relationship("Project", backref="owner", lazy=True)
     assigned_bugs = db.relationship("Bug", backref="assignee", lazy=True)
@@ -27,3 +28,11 @@ class User(db.Model):
         
     def __repr__(self):
         return f"User ={self.name}, Email = {self.email}, Created At = {self.created_at}"
+    
+    def set_password(self,password):
+        hashed = generate_password_hash(password).decode('utf-8')
+        User.password_hash =hashed
+        
+        
+    def check_password(self, password):
+        return check_password_hash(password)
