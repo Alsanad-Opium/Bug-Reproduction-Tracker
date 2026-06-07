@@ -1,6 +1,6 @@
 from app import db
 from datetime import datetime,timezone
-from app import models
+
 
 
 class Bug(db.Model):

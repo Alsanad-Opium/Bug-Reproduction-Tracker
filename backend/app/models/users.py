@@ -7,8 +7,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(100), unique = True, nullable = False)
-    password_hash = db.Column(db.String(100),nullable = False)
-    
+    password_hash = db.Column(db.String(225),nullable = False)
+    role = db.Column(db.Enum('ADMIN', 'DEVELOPER', 'TESTER', name = 'user_roles'), nullable =False, default = 'TESTER')
     #  Projects owned by user
     projects = db.relationship(
         "Project",
@@ -22,7 +22,7 @@ class User(db.Model):
         foreign_keys="Bug.assigned_to",
         lazy=True
     )
-    bugs = db.relationship("Bug", backref="project", lazy=True, cascade="all, delete-orphan")
+    
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
     
@@ -32,8 +32,9 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "email": self.email,
-            "owner_id": self.owner_id,
-            "bugs": [bug.id for bug in self.bugs],
+            "role": self.role,
+            "projects": [p.id for p in self.projects],
+            "assigned_bugs": [b.id for b in self.assigned_bugs],
             "created_at": self.created_at.isoformat()
         }
         

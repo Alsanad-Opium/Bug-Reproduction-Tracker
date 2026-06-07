@@ -12,8 +12,13 @@ class Project(db.Model):
     description = db.Column(db.Text, nullable = True)
     
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
-    
-    bugs = db.relationship("Bug", backref="project", lazy=True)
+    owner = db.relationship("User", back_populates="projects")
+    bugs = db.relationship(
+    "Bug",
+    backref="project",
+    lazy=True,
+    cascade="all, delete-orphan"
+)
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
