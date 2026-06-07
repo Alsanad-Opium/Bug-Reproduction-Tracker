@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app import db
-from app.models.project import Project
+
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 project_bp = Blueprint('project_bp', '__name__', url_prefix = '/api/project')

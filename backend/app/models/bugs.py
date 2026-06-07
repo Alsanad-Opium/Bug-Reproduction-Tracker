@@ -23,7 +23,13 @@ class Bug(db.Model):
     
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
     
-    assigned_to = db.Column(db.Integer, db.ForeignKey('user.id'))
+    assigned_to = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    assignee = db.relationship(
+        "User",
+        back_populates="assigned_bugs",
+        foreign_keys=[assigned_to]
+    )
     
     
     

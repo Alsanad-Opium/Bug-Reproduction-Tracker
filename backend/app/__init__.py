@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate  import Migrate
 from flask_jwt_extended import JWTManager
-import bcrypt
+from flask_bcrypt import Bcrypt
 
 
 
@@ -10,7 +10,7 @@ import bcrypt
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
-bcrypt = bcrypt()
+bcrypt = Bcrypt()
 
 def create_app():
     

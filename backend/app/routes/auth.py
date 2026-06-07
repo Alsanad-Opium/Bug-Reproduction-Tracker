@@ -34,7 +34,7 @@ def register():
     db.session.commit()
     
     
-@auth_bp.route('/login/',__name__, methods = ['POST'])
+@auth_bp.route('/login/', methods = ['POST'])
 def login():
     
     data= request.get_json()
