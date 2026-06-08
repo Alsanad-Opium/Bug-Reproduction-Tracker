@@ -23,6 +23,8 @@ class User(db.Model):
         lazy=True
     )
     
+    reproduction_attempts = db.relationship('ReproductionAttempts', back_populates = 'user', lazy = True)
+    
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
     
