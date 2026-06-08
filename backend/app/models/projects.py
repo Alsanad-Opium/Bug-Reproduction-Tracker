@@ -28,7 +28,8 @@ class Project(db.Model):
             "name": self.name,
             "description": self.description,
             "owner_id": self.owner_id,
-            "created_at": self.created_at
+            "created_at": self.created_at.isoformat(),
+            "bugs": [bug.to_dict() for bug in self.bugs]
         }
         
     def __repr__(self):

@@ -53,7 +53,7 @@ def create_project():
 @require_role('ADMIN')
 @jwt_required()
 def update_project(id):
-    user_id = get_jwt_identity() 
+    user_id = int(get_jwt_identity())
     project = db.session.get(Project,id)
     
     if project is None:
