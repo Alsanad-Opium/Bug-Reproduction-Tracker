@@ -3,7 +3,56 @@ from app import db
 from app.routes.auth import require_role
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.reproduction import ReproductionAttempt
+from app.models.bugs import Bug
 
 
-repo_bp = Blueprint('repo_bp',__name__,url_prefic = "api/reproduction")
+repo_bp = Blueprint('reproduction',__name__,url_prefic = "api/bugs") #We reuse /api/bugs as the prefix intentionally. Reproduction attempts belong to a bug, so the URLs read naturally — /api/bugs/1/attempts, /api/bugs/1/score. It makes the API self-documenting.
 
+@repo_bp.route('/<int:bug_id>/attempt',methods = ['POST'], strict_slashes = False)
+@require_role('ADMIN','TESTER','DEVELOPER')
+@jwt_required()
+def log_attempt(bug_id):
+    
+    bug = db.session.get(Bug, id)
+    user_id = int(get_jwt_identity())
+    if  bug is None:
+        return jsonify({
+            'message': "Bug not found"
+        }),404
+    
+    valid_results = ['REPRODUCED', 'NOT_REPRODUCED']
+    
+    data = request.get_json()
+    
+    if data['result'] not in valid_results:
+        return jsonify({
+            "message": " There can only two values 'REPRODUCED', 'NOT_REPRODUCED' "
+        }),403
+        
+    attempt = ReproductionAttempt(
+        user_id = user_id,
+        bug_id = bug_id,
+        result = data['result'],
+        notes = data['notes']
+    )
+    
+@repo_bp.route('/<int:bug_id>/attempt',methods = ['GET'], strict_slashes = False)
+@require_role('ADMIN','TESTER','DEVELOPER')
+@jwt_required()
+def list_attempts(id):
+    
+    attempts = ReproductionAttempt.query.filter_by(id=id).all()
+    user_id = int(get_jwt_identity())
+    if  attempts is None :
+        return jsonify({
+            'message': "Bug reproduction attempts not found"
+        }),404
+        
+        
+    return jsonify({'message':"Fetched all attempts",
+                    'total_attempts': len(attempts),
+                    'attempts':[a.to_dict() for a in attempts]
+                    })
+        
+        
+        
