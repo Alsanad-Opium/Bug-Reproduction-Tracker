@@ -29,7 +29,7 @@ class Bug(db.Model):
         foreign_keys=[assigned_to]
     )
     
-    reproduction_attempts = db.relationship('ReproductionAttempts', back_populates = 'bug', lazy = True, cascade = "all, delete-orphan")
+    reproduction_attempts = db.relationship('ReproductionAttempt', back_populates = 'bug', lazy = True, cascade = "all, delete-orphan")
     
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))

@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 class ReproductionAttempt(db.Model):
     
-    __tablename__ = "reporduction_attempts"
+    __tablename__ = "reproduction_attempts"
     
     id = db.Column(db.Integer, primary_key = True)
     
@@ -29,7 +29,7 @@ class ReproductionAttempt(db.Model):
             'bug_id': self.bug_id,
             'result': self.result,
             'note': self.note,
-            'users': [u.to_dict() for u in self.user],
-            'bugs': [b.to_dict() for b in self.bug],
+            'users': self.user.to_dict(),
+            'bugs': self.bug.to_dict(),
             'created_at': self.created_at,
         }

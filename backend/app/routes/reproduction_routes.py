@@ -6,14 +6,14 @@ from app.models.reproduction import ReproductionAttempt
 from app.models.bugs import Bug
 
 
-repo_bp = Blueprint('reproduction',__name__,url_prefic = "api/bugs") #We reuse /api/bugs as the prefix intentionally. Reproduction attempts belong to a bug, so the URLs read naturally — /api/bugs/1/attempts, /api/bugs/1/score. It makes the API self-documenting.
+repo_bp = Blueprint('reproduction',__name__,url_prefix = "/api/bugs") #We reuse /api/bugs as the prefix intentionally. Reproduction attempts belong to a bug, so the URLs read naturally — /api/bugs/1/attempts, /api/bugs/1/score. It makes the API self-documenting.
 
 @repo_bp.route('/<int:bug_id>/attempt',methods = ['POST'], strict_slashes = False)
 @require_role('ADMIN','TESTER','DEVELOPER')
 @jwt_required()
 def log_attempt(bug_id):
     
-    bug = db.session.get(Bug, id)
+    bug = db.session.get(Bug, bug_id)
     user_id = int(get_jwt_identity())
     if  bug is None:
         return jsonify({
@@ -33,17 +33,23 @@ def log_attempt(bug_id):
         user_id = user_id,
         bug_id = bug_id,
         result = data['result'],
-        notes = data['notes']
+        note = data.get('note')
     )
+    db.session.add(attempt)
+    db.session.commit()
+    
+    return jsonify({'message':"The attempt was added",
+                    'attempt': attempt.to_dict()
+                    })
     
 @repo_bp.route('/<int:bug_id>/attempt',methods = ['GET'], strict_slashes = False)
 @require_role('ADMIN','TESTER','DEVELOPER')
 @jwt_required()
-def list_attempts(id):
+def list_attempts(bug_id):
     
-    attempts = ReproductionAttempt.query.filter_by(id=id).all()
+    attempts = ReproductionAttempt.query.filter_by(bug_id=bug_id).all()
   
-    if  attempts is None :
+    if  not attempts:
         return jsonify({
             'message': "Bug reproduction attempts not found"
         }),404
@@ -61,9 +67,9 @@ def list_attempts(id):
 
 def score(bug_id):
     
-    attempts = ReproductionAttempt.query.filter_by(id=id).all()
+    attempts = ReproductionAttempt.query.filter_by(bug_id=bug_id).all()
     
-    if  attempts is None :
+    if  not attempts  :
         return jsonify({
             'message': "Bug reproduction attempts not found"
         }),404   
@@ -77,7 +83,7 @@ def score(bug_id):
              'score': None
         }),200
         
-    reproduced = sum(1 for a  in attempts if a['result']== 'REPRODUCED')
+    reproduced = sum(1 for a  in attempts if a.result == 'REPRODUCED')
     score = round((reproduced/total_attempts)*100,1)
     
     return jsonify(
