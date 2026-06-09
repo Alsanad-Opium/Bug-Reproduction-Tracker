@@ -42,7 +42,7 @@ def log_attempt(bug_id):
 def list_attempts(id):
     
     attempts = ReproductionAttempt.query.filter_by(id=id).all()
-    user_id = int(get_jwt_identity())
+  
     if  attempts is None :
         return jsonify({
             'message': "Bug reproduction attempts not found"
@@ -55,4 +55,38 @@ def list_attempts(id):
                     })
         
         
+@repo_bp.route('/<int:bug_id>/score',methods = ['GET'], strict_slashes = False)
+@require_role('ADMIN','TESTER','DEVELOPER')
+@jwt_required()
+
+def score(bug_id):
+    
+    attempts = ReproductionAttempt.query.filter_by(id=id).all()
+    
+    if  attempts is None :
+        return jsonify({
+            'message': "Bug reproduction attempts not found"
+        }),404   
         
+    total_attempts = len(attempts)
+    
+    if total_attempts == 0 :
+        return jsonify({
+            'bug_id':bug_id,
+            'attempt': 'No attempts yet',
+             'score': None
+        }),200
+        
+    reproduced = sum(1 for a  in attempts if a['result']== 'REPRODUCED')
+    score = round((reproduced/total_attempts)*100,1)
+    
+    return jsonify(
+        {
+            "bug": bug_id,
+            'attempts': total_attempts,
+            'successful_attempt': reproduced,
+            'not_successful_attempts': total_attempts-reproduced,
+            'score': score,
+            'Details': [a.to_dict() for a in attempts]
+         }
+    ),200
