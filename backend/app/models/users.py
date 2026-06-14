@@ -22,8 +22,9 @@ class User(db.Model):
         foreign_keys="Bug.assigned_to",
         lazy=True
     )
-    
+       
     reproduction_attempts = db.relationship('ReproductionAttempt', back_populates = 'user', lazy = True)
+    comments = db.relationship('Comment', back_populates = 'user', lazy = True)
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     

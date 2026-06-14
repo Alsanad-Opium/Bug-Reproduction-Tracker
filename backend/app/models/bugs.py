@@ -28,6 +28,12 @@ class Bug(db.Model):
         back_populates="assigned_bugs",
         foreign_keys=[assigned_to]
     )
+    comments = db.relationship(
+        "Comment",
+        back_populates="bug",
+        lazy = True,
+        cascade = "all, delete-orphan"
+    )
     
     reproduction_attempts = db.relationship('ReproductionAttempt', back_populates = 'bug', lazy = True, cascade = "all, delete-orphan")
     
