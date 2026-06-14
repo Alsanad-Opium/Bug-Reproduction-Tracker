@@ -5,16 +5,16 @@ class Comment(db.Model):
     
     __tablename__ = 'comments'
     
-    id = db.Columns(db.Integer,primarykey =True, nullable = False, unique = True)
+    id = db.Column(db.Integer,primary_key =True, nullable = False, unique = True)
 
-    bug_id = db.Columns(db.Integer, db.ForeignKey('bugs.id'), nullable = False)
-    user_id = db.Columns(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    bug_id = db.Column(db.Integer, db.ForeignKey('bugs.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
 
-    content = db.Columns(db.Text, nullable = False)
+    content = db.Column(db.Text, nullable = False)
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
-    bug = db.relatioship("Bug", back_populates = "comments")
-    user = db.relatioship("User", back_populates = "comments")
+    bug = db.relationship("Bug", back_populates = "comments")
+    user = db.relationship("User", back_populates = "comments")
     
     def to_dict(self):
         return {
