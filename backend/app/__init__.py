@@ -30,10 +30,12 @@ def create_app():
     from app.routes.bug_routes import bugs_bp
     from app.routes.auth import auth_bp
     from app.routes.reproduction_routes import repo_bp
+    from app.routes.comment_route import comment_bp
     
     app.register_blueprint(project_bp)
     app.register_blueprint(ping_bp)
     app.register_blueprint(bugs_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(repo_bp)
+    app.register_blueprint(comment_bp)
     return app
