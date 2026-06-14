@@ -34,6 +34,13 @@ class Bug(db.Model):
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
+    def get_reproducibility_score(self):
+        attempts = self.reproduction_attempts
+        
+        total_attempts = len(attempts)
+        
+        reproduced = sum(1 for a  in attempts if a.result == 'REPRODUCED')
+        return  round((reproduced/total_attempts)*100,1)
     
     def to_dict(self):
         return {
@@ -44,5 +51,7 @@ class Bug(db.Model):
         "priority": self.priority,
         "project_id": self.project_id,
         "assigned_to": self.assigned_to,
+        "score":self.get_reproducibility_score(),
+        "total_attempts":len(self.reproduction_attempts),
         "created_at": self.created_at.isoformat()
     }
