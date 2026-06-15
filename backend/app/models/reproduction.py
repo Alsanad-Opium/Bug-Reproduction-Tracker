@@ -21,15 +21,12 @@ class ReproductionAttempt(db.Model):
     bug = db.relationship('Bug', back_populates = "reproduction_attempts")
     user = db.relationship('User', back_populates = "reproduction_attempts")
     
-    def to_dict (self):
-        
+    def to_dict(self):
         return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'bug_id': self.bug_id,
-            'result': self.result,
-            'note': self.note,
-            'users': self.user.to_dict(),
-            'bugs': self.bug.to_dict(),
-            'created_at': self.created_at,
+        'id': self.id,
+        'user_id': self.user_id,
+        'bug_id': self.bug_id,
+        'result': self.result,
+        'note': self.note,
+        'created_at': self.created_at.isoformat()
         }

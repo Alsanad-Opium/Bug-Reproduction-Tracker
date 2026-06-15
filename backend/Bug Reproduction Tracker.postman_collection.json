@@ -145,7 +145,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNTE4MCwianRpIjoiYzI0NzlmZjUtZDEzMC00N2M4LThmODQtZDE3NmQ2ZTg5Yzk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTUxODAsImNzcmYiOiJhZTJhOGY0Yy1kZWE4LTQ4NWYtYjJlNy1mYTljMzgwNmM1ZDIiLCJleHAiOjE3ODE1MTg3ODAsInJvbGUiOiJBRE1JTiJ9.EH5ElYsff0NYMuyZrFsUna_UDQdQiruo9mZ3wk4IeFU",
                       "type": "string"
                     }
                   ]
@@ -154,7 +154,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\":\"Test failed\",\r\n    \"description\":\"Not enough resources\",\r\n    \"project_id\":1\r\n}",
+                  "raw": "{\r\n    \"title\": \"Checkout button unresponsive\",\r\n    \"description\": \"Clicking checkout does nothing on mobile\",\r\n    \"project_id\": 1,\r\n    \"steps_to_reproduce\": [\r\n        \"Add item to cart\",\r\n        \"Go to checkout page\",\r\n        \"Click the Checkout button\"\r\n    ],\r\n    \"expected_result\": \"User is redirected to payment page\",\r\n    \"actual_result\": \"Nothing happens, no error shown\",\r\n    \"environment_os\": \"Android 14\",\r\n    \"environment_browser\": \"Chrome Mobile\",\r\n    \"environment_version\": \"v2.3.1\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -729,6 +729,245 @@
                 "api",
                 "bugs",
                 "debug"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User_lifecycle",
+      "item": [
+        {
+          "name": "Create_bug",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Search results not paginating\",\r\n    \"description\": \"Only first 10 results show regardless of total count\",\r\n    \"project_id\": 1,\r\n    \"steps_to_reproduce\": [\r\n        \"Go to search page\",\r\n        \"Search for a common term\",\r\n        \"Scroll to bottom of results\"\r\n    ],\r\n    \"expected_result\": \"Pagination controls appear, allowing next page\",\r\n    \"actual_result\": \"No pagination controls, list just ends\",\r\n    \"environment_os\": \"Windows 11\",\r\n    \"environment_browser\": \"Firefox\",\r\n    \"environment_version\": \"126.0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "attempt_reproduce",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"result\": \"NOT_REPRODUCED\",\r\n    \"note\": \"Pagination worked fine for me on Firefox 126\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/4/attempt",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "4",
+                "attempt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add_comment",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"content\": \"Tried on Firefox 126 and pagination works. Can you confirm your screen resolution and zoom level?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/4/comments",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "4",
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "score",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/4/score",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "4",
+                "score"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "FetchFull_bug",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/4",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list_all_comments",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/4/comments",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "4",
+                "comments"
               ]
             }
           },

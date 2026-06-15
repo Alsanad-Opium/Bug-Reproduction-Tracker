@@ -49,6 +49,8 @@ class Bug(db.Model):
         attempts = self.reproduction_attempts
         
         total_attempts = len(attempts)
+        if total_attempts ==  0:
+            return None
         
         reproduced = sum(1 for a  in attempts if a.result == 'REPRODUCED')
         return  round((reproduced/total_attempts)*100,1)
