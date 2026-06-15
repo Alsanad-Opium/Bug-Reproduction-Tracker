@@ -1,0 +1,774 @@
+{
+  "info": {
+    "_postman_id": "2b65861e-ea3b-415c-be56-7aa4bcc5190c",
+    "name": "Bug Reproduction Tracker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55012358",
+    "_collection_link": "https://go.postman.co/collection/55012358-2b65861e-ea3b-415c-be56-7aa4bcc5190c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Alsanad\",\r\n    \"email\":\"Alsanad@123.com\",\r\n    \"password\":\"1234\",\r\n    \"role\":\"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/auth/register",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMTIzMCwianRpIjoiNTQ0MDAyMzAtYjhlMy00OGZlLWEzZGMtMzkzMmIyODM1NzUxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDEyMzAsImNzcmYiOiIyY2RmZjg4YS0yZTE1LTQ0NDctODE3MS05MDQ5YzY0NGQ1OTEiLCJleHAiOjE3ODA5MDQ4MzAsInJvbGUiOiJBRE1JTiJ9.K4fHaL-EfDFRMx7xHzGd0AGG1chwKbplKcRoOFD-Lf0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"Alsanad@123.com\",\r\n    \"password\":\"1234\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/auth/login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMTc4OSwianRpIjoiMTBkNDUxMWYtNzY0ZS00MTczLThkMzUtZTQ2ZWNiNTUzYjVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDE3ODksImNzcmYiOiJlOWUwYTAwMi1mNzI2LTRlNmEtYTBjNS1mNGFkMTRhMGRjMGMiLCJleHAiOjE3ODA5MDUzODksInJvbGUiOiJBRE1JTiJ9.bjX5kFbhA2OjvMt0GKy3NmRfbqXlB6X5BioU9ps2gk0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/auth/me",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Project, bug ,comment and reproduction",
+      "item": [
+        {
+          "name": "bug_testing",
+          "item": [
+            {
+              "name": "create_bug",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"Test failed\",\r\n    \"description\":\"Not enough resources\",\r\n    \"project_id\":1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "fetch_bug",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "fetch_by_id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0hgz}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "status",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"status\": \"CLOSED\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/status",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "status"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "priority",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"priority\": \"LOW\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/priority",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "priority"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "project",
+          "item": [
+            {
+              "name": "create_project",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDg2NjE3MSwianRpIjoiMjUxNzNkMDAtNGNkZS00ODM1LWI0NTEtMWI2NTFlMzgzYWRjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA4NjYxNzEsImNzcmYiOiJiZWNlMTM3Yy0wYjkxLTQxN2UtYTU3NC0wNmYwZTFjM2IyZDkiLCJleHAiOjE3ODA4Njk3NzEsInJvbGUiOiJBRE1JTiJ9.cd4eSzjyzp0mWetWLKiYhUVizG9LUcjNYYSSGWu4T-M",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Project-1\",\r\n    \"description\":\"Development test\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/projects",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "projects"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "fetch_project",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMTIzMCwianRpIjoiNTQ0MDAyMzAtYjhlMy00OGZlLWEzZGMtMzkzMmIyODM1NzUxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDEyMzAsImNzcmYiOiIyY2RmZjg4YS0yZTE1LTQ0NDctODE3MS05MDQ5YzY0NGQ1OTEiLCJleHAiOjE3ODA5MDQ4MzAsInJvbGUiOiJBRE1JTiJ9.K4fHaL-EfDFRMx7xHzGd0AGG1chwKbplKcRoOFD-Lf0",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/projects",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "projects"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMTc4OSwianRpIjoiMTBkNDUxMWYtNzY0ZS00MTczLThkMzUtZTQ2ZWNiNTUzYjVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDE3ODksImNzcmYiOiJlOWUwYTAwMi1mNzI2LTRlNmEtYTBjNS1mNGFkMTRhMGRjMGMiLCJleHAiOjE3ODA5MDUzODksInJvbGUiOiJBRE1JTiJ9.bjX5kFbhA2OjvMt0GKy3NmRfbqXlB6X5BioU9ps2gk0",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Test Failed_Resolved\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/projects/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "projects",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "reproduction",
+          "item": [
+            {
+              "name": "log_attempt",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0hgz}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"result\": \"REPRODUCED\",\r\n    \"note\": \"Reproduced on Edge as well\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/attempt",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "attempt"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "list_log",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{auth_secret_0hgz}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/attempt",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "attempt"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "score",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{auth_secret_0hgz}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/score",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "score"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "comments",
+          "item": [
+            {
+              "name": "add_comment",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxMzM2MiwianRpIjoiZWUyN2IyYzQtMmZiNC00MjA0LWFlMjctNmViNjY2MjdhNDA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTMzNjIsImNzcmYiOiIxZGFjZTIyMC05YTZiLTQ0OWEtOGUwYi1kN2I1ZWI0YjM0YmMiLCJleHAiOjE3ODE1MTY5NjIsInJvbGUiOiJBRE1JTiJ9.DmnouiHZ-ctAxUsvYveCroOgG09TFH_Rbm806w9BzaY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"content\":\"This bug is easy to reproduce\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/comments",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "comments"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "New Request",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxMzM2MiwianRpIjoiZWUyN2IyYzQtMmZiNC00MjA0LWFlMjctNmViNjY2MjdhNDA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTMzNjIsImNzcmYiOiIxZGFjZTIyMC05YTZiLTQ0OWEtOGUwYi1kN2I1ZWI0YjM0YmMiLCJleHAiOjE3ODE1MTY5NjIsInJvbGUiOiJBRE1JTiJ9.DmnouiHZ-ctAxUsvYveCroOgG09TFH_Rbm806w9BzaY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs/1/comments",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs",
+                    "1",
+                    "comments"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "debug",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\":\"Test failed\",\r\n    \"description\":\"Not enough resources\",\r\n    \"project_id\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/debug",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "debug"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/health/ping/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "health",
+            "ping",
+            ""
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_0hgz",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0hgz",
+      "secret": true
+    }
+  ]
+}

@@ -40,9 +40,9 @@ def add_comment(bug_id):
 @jwt_required()
 def list_attempts(bug_id):
     
-    comments = Comment.query.filter_by(bug_id=bug_id).order_by(Comment.created_at.desc()).all
+    comments = Comment.query.filter_by(bug_id=bug_id).order_by(Comment.created_at.desc()).all()
   
-    if  not comments:
+    if   comments is None:
         return jsonify({
             'message': "Comments not found for the bug"
         }),404
