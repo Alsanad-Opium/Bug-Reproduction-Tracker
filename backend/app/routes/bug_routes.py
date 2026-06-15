@@ -58,7 +58,14 @@ def create_bug():
         title=data['title'],
         description=data.get('description'),
         project_id=data['project_id'],
-        assigned_to=data.get('assigned_to')
+        assigned_to=data.get('assigned_to'),
+        steps_to_reproduce=data.get('steps_to_reproduce'),
+        expected_result=data.get('expected_result'),
+        actual_result=data.get('actual_result'),
+        environment_os=data.get('environment_os'),
+        environment_browser=data.get('environment_browser'),
+        environment_version=data.get('environment_version')
+                
     )
     db.session.add(bug)
     db.session.commit()

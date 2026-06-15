@@ -12,16 +12,19 @@ class Bug(db.Model):
     description = db.Column(db.Text, nullable = True)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable = False)
     
-    status = db.Column(
-    db.Enum('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED', name='bug_status'),
-    default='OPEN'
-)
+    status = db.Column(db.Enum('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED', name='bug_status'),default='OPEN')
 
-    priority = db.Column(
-    db.Enum('LOW', 'MEDIUM', 'HIGH', 'CRITICAL', name='bug_priority'),
-    default='MEDIUM'
-)       
+    priority = db.Column(db.Enum('LOW', 'MEDIUM', 'HIGH', 'CRITICAL', name='bug_priority'),default='MEDIUM')       
+    
     assigned_to = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    steps_to_reproduce = db.Column(db.JSON, nullable = True)
+    expected_result = db.Column(db.Text, nullable = True)
+    actual_result = db.Column(db.Text, nullable = True)
+    
+    environment_os = db.Column(db.String(50), nullable = True)
+    environment_browser = db.Column(db.String(50), nullable = True)
+    environment_version = db.Column(db.String(50), nullable = True)
     
     assignee = db.relationship(
         "User",
@@ -40,6 +43,8 @@ class Bug(db.Model):
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
+    
+    
     def get_reproducibility_score(self):
         attempts = self.reproduction_attempts
         
@@ -53,6 +58,14 @@ class Bug(db.Model):
         "id": self.id,
         "title": self.title,
         "description": self.description,
+        "steps_to_reproduce": self.steps_to_reproduce,
+        "expected_result": self.expected_result,
+        "actual_result": self.actual_result,
+        "environment": {
+            "env_OS": self.environment_os,
+            "env_browser": self.environment_browser,
+            "env_version":self.environment_version,
+        },
         "status": self.status,
         "priority": self.priority,
         "project_id": self.project_id,
