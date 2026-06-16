@@ -4,6 +4,7 @@ from app.models.bugs import Bug
 from app.models.projects import Project
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app.routes.auth import require_role
+from app.services.bugs_service import BugService
 
 bugs_bp = Blueprint('bugs', __name__, url_prefix='/api/bugs')
 
