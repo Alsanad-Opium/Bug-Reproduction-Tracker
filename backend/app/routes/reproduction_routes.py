@@ -1,9 +1,8 @@
 from flask import Blueprint, request, jsonify
-from app import db
 from app.routes.auth import require_role
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.reproduction import ReproductionAttempt
-from app.models.bugs import Bug
+from app.services.reproduction_service import ReproductionService
 
 
 repo_bp = Blueprint('reproduction',__name__,url_prefix = "/api/bugs") #We reuse /api/bugs as the prefix intentionally. Reproduction attempts belong to a bug, so the URLs read naturally — /api/bugs/1/attempts, /api/bugs/1/score. It makes the API self-documenting.
@@ -13,52 +12,35 @@ repo_bp = Blueprint('reproduction',__name__,url_prefix = "/api/bugs") #We reuse 
 @jwt_required()
 def log_attempt(bug_id):
     
-    bug = db.session.get(Bug, bug_id)
+   
     user_id = int(get_jwt_identity())
-    if  bug is None:
+    data = request.get_json()
+    
+    result = ReproductionService.log_attempt(data,bug_id,user_id )
+    if  result['status'] == "not_found":
         return jsonify({
             'message': "Bug not found"
         }),404
-    
-    valid_results = ['REPRODUCED', 'NOT_REPRODUCED']
-    
-    data = request.get_json()
-    
-    if data['result'] not in valid_results:
+       
+    if result['status'] == "Invalid":
         return jsonify({
             "message": " There can only two values 'REPRODUCED', 'NOT_REPRODUCED' "
         }),403
-        
-    attempt = ReproductionAttempt(
-        user_id = user_id,
-        bug_id = bug_id,
-        result = data['result'],
-        note = data.get('note')
-    )
-    db.session.add(attempt)
-    db.session.commit()
-    
+            
     return jsonify({'message':"The attempt was added",
-                    'attempt': attempt.to_dict()
-                    })
+                    'attempt': result['attempt']}),201
     
 @repo_bp.route('/<int:bug_id>/attempt',methods = ['GET'], strict_slashes = False)
 @require_role('ADMIN','TESTER','DEVELOPER')
 @jwt_required()
 def list_attempts(bug_id):
     
-    attempts = ReproductionAttempt.query.filter_by(bug_id=bug_id).all()
-  
-    if  not attempts:
-        return jsonify({
-            'message': "Bug reproduction attempts not found"
-        }),404
-        
-        
+    result = ReproductionService.list_attempts(bug_id) 
+             
     return jsonify({'message':"Fetched all attempts",
-                    'total_attempts': len(attempts),
-                    'attempts':[a.to_dict() for a in attempts]
-                    })
+                    'total_attempts': len(result),
+                    'attempts':result
+                    }),200
         
         
 @repo_bp.route('/<int:bug_id>/score',methods = ['GET'], strict_slashes = False)
@@ -67,32 +49,28 @@ def list_attempts(bug_id):
 
 def score(bug_id):
     
-    attempts = ReproductionAttempt.query.filter_by(bug_id=bug_id).all()
+    attempts = ReproductionService.score(bug_id)
     
     if  not attempts  :
         return jsonify({
             'message': "Bug reproduction attempts not found"
         }),404   
         
-    total_attempts = len(attempts)
-    
-    if total_attempts == 0 :
+    if attempts['status'] == "No_Attempt" :
         return jsonify({
             'bug_id':bug_id,
             'attempt': 'No attempts yet',
-             'score': None
+             'score': attempts['score']
         }),200
         
-    reproduced = sum(1 for a  in attempts if a.result == 'REPRODUCED')
-    score = round((reproduced/total_attempts)*100,1)
-    
+        
     return jsonify(
         {
             "bug": bug_id,
-            'attempts': total_attempts,
-            'successful_attempt': reproduced,
-            'not_successful_attempts': total_attempts-reproduced,
-            'score': score,
-            'Details': [a.to_dict() for a in attempts]
+            'attempts': attempts['attempts'],
+            'successful_attempt': attempts['successful_attempt'],
+            'not_successful_attempts': attempts['not_successful_attempts'],
+            'score': attempts['score'],
+            # 'Details': [a.to_dict() for a in attempts]
          }
     ),200

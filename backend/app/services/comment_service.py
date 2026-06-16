@@ -23,7 +23,8 @@ class CommentService:
         db.session.commit()
 
         return {'status': 'success', 'comment': comment.to_dict()}
-        
+     
+    @staticmethod    
     def list_attempts(bug_id):
     
         comments = Comment.query.filter_by(bug_id=bug_id).order_by(Comment.created_at.asc()).all()
