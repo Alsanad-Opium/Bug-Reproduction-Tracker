@@ -14,10 +14,12 @@ bugs_bp = Blueprint('bugs', __name__, url_prefix='/api/bugs')
 @require_role('ADMIN', 'TESTER')
 def get_all_bugs():
     user_id = int(get_jwt_identity())
-    bugs = Bug.query.join(Project).filter(Project.owner_id == user_id).all()
-    if not bugs:
+    result = BugService.get_all_bugs(user_id)
+    
+    if result['status'] == "Not_found" :
         return jsonify({"message": "No bugs found"}), 404
-    return jsonify([bug.to_dict() for bug in bugs]), 200
+    
+    return jsonify( result), 200
 
 
 @bugs_bp.route('/debug', methods=['GET'], strict_slashes=False)
@@ -28,14 +30,14 @@ def token_claims():
     return jsonify({"claims": claims, "identity": identity}), 200
 
 
-@bugs_bp.route('/<int:id>', methods=['GET'], strict_slashes=False)
+@bugs_bp.route('/<int:bug_id>', methods=['GET'], strict_slashes=False)
 @jwt_required()
 @require_role('ADMIN', 'TESTER', 'DEVELOPER')
-def get_bug(id):
-    bug = db.session.get(Bug, id)
-    if bug is None:
+def get_bug(bug_id):
+    result  = BugService.get_bug(bug_id)
+    if result['status'] == 'Not_found':
         return jsonify({"message": "Bug not found"}), 404
-    return jsonify(bug.to_dict()), 200
+    return jsonify(result['bug']), 200
 
 
 @bugs_bp.route('', methods=['POST'], strict_slashes=False)
@@ -44,69 +46,49 @@ def get_bug(id):
 def create_bug():
     data = request.get_json()
     user_id = int(get_jwt_identity())
+    
 
     if not data or not data.get('title') or not data.get('project_id'):
         return jsonify({"message": "title and project_id are required"}), 400
 
-    project = db.session.get(Project, data['project_id'])
-    if not project:
+    result = BugService.create_bug(data,user_id)
+    
+    if result['status'] == "Project not found" :
         return jsonify({"message": "Project not found"}), 404
 
-    if project.owner_id != user_id:
+    if result['status'] == "Unauthorized":
         return jsonify({"message": "Unauthorized"}), 403
 
-    bug = Bug(
-        title=data['title'],
-        description=data.get('description'),
-        project_id=data['project_id'],
-        assigned_to=data.get('assigned_to'),
-        steps_to_reproduce=data.get('steps_to_reproduce'),
-        expected_result=data.get('expected_result'),
-        actual_result=data.get('actual_result'),
-        environment_os=data.get('environment_os'),
-        environment_browser=data.get('environment_browser'),
-        environment_version=data.get('environment_version')
-                
-    )
-    db.session.add(bug)
-    db.session.commit()
-
-    return jsonify({"message": "Bug created successfully", "bug": bug.to_dict()}), 201
+    return jsonify({"message": "Bug created successfully", "bug": result['bug']}), 201
 
 
-@bugs_bp.route('/<int:id>/status', methods=['PUT'], strict_slashes=False)
+@bugs_bp.route('/<int:bug_id>/status', methods=['PUT'], strict_slashes=False)
 @jwt_required()
-def update_bug_status(id):
-    bug = db.session.get(Bug, id)
-    if bug is None:
+def update_bug_status(bug_id):
+    
+    data = request.get_json()
+    result = BugService.update_bug_status(data,bug_id)
+    if result['status'] == 'not_found':
         return jsonify({"message": "Bug not found"}), 404
 
-    data = request.get_json()
-    valid_status = ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"]
-
-    if data.get("status") not in valid_status:
-        return jsonify({"message": "Invalid status"}), 400
-
-    bug.status = data["status"]
-    db.session.commit()
-
-    return jsonify({"message": "Bug status updated successfully", "bug": bug.to_dict()}), 200
+    if result['status'] == 'Invalid status' :
+            return jsonify({"message": "Invalid status"}),400
+        
+    return jsonify({"message": "Bug status updated successfully", "bug": result['bug']}), 200
 
 
-@bugs_bp.route('/<int:id>/priority', methods=['PUT'], strict_slashes=False)
+@bugs_bp.route('/<int:bug_id>/priority', methods=['PUT'], strict_slashes=False)
 @jwt_required()
-def update_bug_priority(id):
-    bug = db.session.get(Bug, id)
-    if bug is None:
-        return jsonify({"message": "Bug not found"}), 404
-
+def update_bug_priority(bug_id):
+    
     data = request.get_json()
-    valid_priority = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    result = BugService.update_bug_priority(data,bug_id)
+    
+    if result['status'] == 'Bug not found':
+        return jsonify({"message": "Bug not found"}), 404    
 
-    if data.get("priority") not in valid_priority:
+    if result['status'] == "Invalid priority":
         return jsonify({"message": "Invalid priority"}), 400
 
-    bug.priority = data["priority"]
-    db.session.commit()
-
-    return jsonify({"message": "Bug priority updated successfully", "bug": bug.to_dict()}), 200
+    
+    return jsonify({"message": "Bug priority updated successfully", "bug": result['bug']}), 200
