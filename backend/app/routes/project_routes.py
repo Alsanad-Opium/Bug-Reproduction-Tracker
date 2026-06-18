@@ -10,10 +10,12 @@ project_bp = Blueprint('project_bp', __name__, url_prefix='/api/projects')
 @require_role('ADMIN', 'TESTER')
 @jwt_required()
 def get_all_projects():
-    projects = ProjectService.get_all()
+    page = request.args.get('page',1,type = int)
+    per_page = request.args.get('per_page',10,type = int)
+    projects = ProjectService.get_all(page,per_page)
     if not projects:
         return jsonify({"message": "No projects found"}), 404
-    return jsonify(projects), 200
+    return jsonify(projects['data']), 200
 
 
 @project_bp.route('/<int:id>', methods=['GET'], strict_slashes=False)

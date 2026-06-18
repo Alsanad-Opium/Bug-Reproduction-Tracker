@@ -20,12 +20,23 @@ class ProjectService:
         project = db.session.get(Project, project_id)
         if project is None:
             return None
-        return project.to_dict()
+        return project.to_dict(include_bugs =True)
 
     @staticmethod
-    def get_all():
-        projects = Project.query.all()
-        return [project.to_dict() for project in projects]
+    def get_all(page,per_page):
+        
+        pagination = Project.query.paginate(page = page, per_page = per_page, error_out = False)
+        return {'data': {
+                        "projects": [p.to_dict() for p in pagination.items],
+                        "pagination": {
+                        "page": pagination.page,
+                        "per_page": pagination.per_page,
+                        "total_items": pagination.total,
+                        "total_pages": pagination.pages,
+                        "has_next": pagination.has_next,
+                        "has_prev": pagination.has_prev}
+                        }
+        }
 
     @staticmethod
     def update_project(project_id, data, user_id):

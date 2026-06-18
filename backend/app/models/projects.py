@@ -22,15 +22,19 @@ class Project(db.Model):
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
-    def to_dict(self):
-        return{
+    def to_dict(self, include_bugs=False):
+        data = {
             "id": self.id,
             "name": self.name,
             "description": self.description,
             "owner_id": self.owner_id,
             "created_at": self.created_at.isoformat(),
-            "bugs": [bug.to_dict() for bug in self.bugs]
         }
+
+        if include_bugs:
+            data["bugs"] = [bug.to_dict() for bug in self.bugs]
+
+        return data
         
     def __repr__(self):
         return f"Project ={self.name}, Description = {self.description}, Owner ID = {self.owner_id}, Created At = {self.created_at}"
