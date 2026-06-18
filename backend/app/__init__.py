@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate  import Migrate
 from flask_jwt_extended import JWTManager
@@ -38,4 +38,21 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(repo_bp)
     app.register_blueprint(comment_bp)
+    
+    @app.errorhandler(400)
+    def bad_request(e):
+        return jsonify({"message": "Bad request"}), 400
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return jsonify({"message": "Resource not found"}), 404
+
+    @app.errorhandler(403)
+    def forbidden(e):
+        return jsonify({"message": "Forbidden"}), 403
+
+    @app.errorhandler(500)
+    def internal_error(e):
+        db.session.rollback()
+        return jsonify({"message": "An unexpected error occurred"}), 500
     return app
