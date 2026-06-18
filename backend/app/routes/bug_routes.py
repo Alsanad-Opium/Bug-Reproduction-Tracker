@@ -18,7 +18,14 @@ def get_all_bugs():
     page = request.args.get('page',1,type = int)
     per_page = request.args.get('per_page',10,type = int)
     
-    result = BugService.get_all_bugs(user_id,page,per_page)
+    filters = {
+        'project_id' : request.args.get('project_id',type = int), 
+        'assigned_to' : request.args.get('assigned_to',type = int), 
+        'status' : request.args.get('status'), 
+        'priority' : request.args.get('priority'), 
+    }
+    
+    result = BugService.get_all_bugs(user_id,page,per_page,filters)
     
     if result['status'] == "Not_found" :
         return jsonify({"message": "No bugs found"}), 404

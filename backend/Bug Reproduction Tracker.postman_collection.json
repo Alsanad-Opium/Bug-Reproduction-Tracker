@@ -145,7 +145,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNTE4MCwianRpIjoiYzI0NzlmZjUtZDEzMC00N2M4LThmODQtZDE3NmQ2ZTg5Yzk1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTUxODAsImNzcmYiOiJhZTJhOGY0Yy1kZWE4LTQ4NWYtYjJlNy1mYTljMzgwNmM1ZDIiLCJleHAiOjE3ODE1MTg3ODAsInJvbGUiOiJBRE1JTiJ9.EH5ElYsff0NYMuyZrFsUna_UDQdQiruo9mZ3wk4IeFU",
+                      "value": "{{supabase_service_role_api_key_15s1}}",
                       "type": "string"
                     }
                   ]
@@ -154,7 +154,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"Checkout button unresponsive\",\r\n    \"description\": \"Clicking checkout does nothing on mobile\",\r\n    \"project_id\": 1,\r\n    \"steps_to_reproduce\": [\r\n        \"Add item to cart\",\r\n        \"Go to checkout page\",\r\n        \"Click the Checkout button\"\r\n    ],\r\n    \"expected_result\": \"User is redirected to payment page\",\r\n    \"actual_result\": \"Nothing happens, no error shown\",\r\n    \"environment_os\": \"Android 14\",\r\n    \"environment_browser\": \"Chrome Mobile\",\r\n    \"environment_version\": \"v2.3.1\"\r\n}",
+                  "raw": "{\r\n    \"title\": \"Test bug\",\r\n    \"project_id\": 9999\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -190,7 +190,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "value": "{{auth_secret_0a1u}}",
                       "type": "string"
                     }
                   ]
@@ -268,7 +268,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "value": "{{auth_secret_15s1}}",
                       "type": "string"
                     }
                   ]
@@ -285,7 +285,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://127.0.0.1:5000/api/bugs/1/status",
+                  "raw": "http://127.0.0.1:5000/api/bugs/5/status",
                   "protocol": "http",
                   "host": [
                     "127",
@@ -297,7 +297,7 @@
                   "path": [
                     "api",
                     "bugs",
-                    "1",
+                    "5",
                     "status"
                   ]
                 }
@@ -312,7 +312,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MDkwMDQ0MCwianRpIjoiYmJkMWEwNTItM2YzNC00NmE4LWI1MDgtNDBlM2Q5OTc0Zjg4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODA5MDA0NDAsImNzcmYiOiJiNDVjNWZhYS03ZWRhLTQ1ZTMtOGNkZC1hOWEwZmZmMTkxMGUiLCJleHAiOjE3ODA5MDQwNDAsInJvbGUiOiJBRE1JTiJ9.j4L1CeRn22UITqKluCu7gKF9vBLHJBDCiy_CdZ5Lzq4",
+                      "value": "{{json_web_token_15s1}}",
                       "type": "string"
                     }
                   ]
@@ -329,7 +329,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://127.0.0.1:5000/api/bugs/1/priority",
+                  "raw": "http://127.0.0.1:5000/api/bugs/5/priority",
                   "protocol": "http",
                   "host": [
                     "127",
@@ -341,8 +341,101 @@
                   "path": [
                     "api",
                     "bugs",
-                    "1",
+                    "5",
                     "priority"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "fetch_all_pagination",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{json_web_token_0a1u}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs?page=1&per_page=2",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "filter_test",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{supabase_service_role_api_key_0ogb}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/bugs?status=CLOSED&priority=LOW",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "bugs"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "CLOSED"
+                    },
+                    {
+                      "key": "priority",
+                      "value": "LOW"
+                    }
                   ]
                 }
               },
@@ -479,6 +572,49 @@
                     "api",
                     "projects",
                     "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "fetch_project_pagination",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{auth_secret_0tbw}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:5000/api/projects?page=1&per_page=2",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "projects"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "2"
+                    }
                   ]
                 }
               },
@@ -653,14 +789,14 @@
               "response": []
             },
             {
-              "name": "New Request",
+              "name": "get_comments",
               "request": {
                 "auth": {
                   "type": "bearer",
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxMzM2MiwianRpIjoiZWUyN2IyYzQtMmZiNC00MjA0LWFlMjctNmViNjY2MjdhNDA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTMzNjIsImNzcmYiOiIxZGFjZTIyMC05YTZiLTQ0OWEtOGUwYi1kN2I1ZWI0YjM0YmMiLCJleHAiOjE3ODE1MTY5NjIsInJvbGUiOiJBRE1JTiJ9.DmnouiHZ-ctAxUsvYveCroOgG09TFH_Rbm806w9BzaY",
+                      "value": "{{supabase_service_role_api_key_03pj}}",
                       "type": "string"
                     }
                   ]
@@ -668,7 +804,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://127.0.0.1:5000/api/bugs/1/comments",
+                  "raw": "http://127.0.0.1:5000/api/bugs/4/comments",
                   "protocol": "http",
                   "host": [
                     "127",
@@ -680,7 +816,7 @@
                   "path": [
                     "api",
                     "bugs",
-                    "1",
+                    "4",
                     "comments"
                   ]
                 }
@@ -1008,6 +1144,42 @@
     },
     {
       "key": "auth_secret_0hgz",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0m1o",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_15s1",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_03pj",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0ogb",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0tbw",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0a1u",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_15s1",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_15s1",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0a1u",
       "secret": true
     }
   ]

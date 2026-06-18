@@ -5,9 +5,22 @@ from app import db
 class BugService:
     
     @staticmethod       
-    def get_all_bugs(user_id,page,per_page):
+    def get_all_bugs(user_id,page,per_page,filters):
        
-        pagination = Bug.query.join(Project).filter(Project.owner_id == user_id).paginate(page = page, per_page = per_page, error_out = False)
+        query = Bug.query.join(Project).filter(Project.owner_id == user_id)
+        
+        if filters:
+            if filters.get('status'):
+                query = query.filter(Bug.status == filters['status'])
+            if filters.get('priority'):
+                query = query.filter(Bug.priority == filters['priority'])
+            if filters.get('assigned_to'):
+                query = query.filter(Bug.assigned_to == filters['assigned_to'])
+            if filters.get('project_id'):
+                query = query.filter(Bug.project_id == filters['project_id'])
+                
+        pagination = query.paginate(page = page, per_page = per_page, error_out = False)
+           
         if not pagination.items:
             return {"status": "Not_found"}
         return {'status':"success", 
