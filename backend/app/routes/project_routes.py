@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.routes.auth import require_role
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.services.project_service import ProjectService
+from app.utils.validators import validate_enum_input,validate_input
 
 project_bp = Blueprint('project_bp', __name__, url_prefix='/api/projects')
 
@@ -34,9 +35,9 @@ def get_project(id):
 def create_project():
     data = request.get_json()
     user_id = int(get_jwt_identity())
-
-    if not data or not data.get('name') or not data.get('description'):
-        return jsonify({"message": "name and description are required"}), 400
+    error = validate_input(data, ['name', 'description'])
+    if error:
+        return jsonify({"message": error}), 400
 
     project_data = ProjectService.create_project(data, user_id)
     return jsonify({'message': 'Project created successfully', 'project': project_data}), 201

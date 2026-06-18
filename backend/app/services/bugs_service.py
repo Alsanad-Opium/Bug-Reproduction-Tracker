@@ -1,6 +1,7 @@
 from app.models.bugs import Bug
 from app.models.projects import Project
 from app import db
+from app.utils.validators import validate_input,validate_enum_input
 
 class BugService:
     
@@ -47,6 +48,9 @@ class BugService:
     @staticmethod
     def create_bug(data, user_id):
        
+        error = validate_input(data, ['title', 'project_id'])
+        if error:
+            return {"status": "invalid", "message": error}
         project = db.session.get(Project, data['project_id'])
         
         if not project:
@@ -81,9 +85,9 @@ class BugService:
 
         
         valid_status = ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"]
-
-        if data.get("status") not in valid_status:
-            return {"status": "Invalid status"}
+        error = validate_enum_input(data, 'status', valid_status)
+        if error:
+            return {"status": "invalid", "message": error}
 
         bug.status = data["status"]
         db.session.commit()
@@ -100,8 +104,9 @@ class BugService:
         
         valid_priority = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
 
-        if data.get("priority") not in valid_priority:
-            return {"status": "Invalid priority"}
+        error = validate_enum_input(data, 'priority', valid_priority)
+        if error:
+            return {"status": "invalid", "message": error}
 
         bug.priority = data["priority"]
         db.session.commit()

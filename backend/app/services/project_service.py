@@ -1,11 +1,17 @@
 from app.models.projects import Project
 from app import db
-
+from app.utils.validators import validate_input,validate_enum_input
 
 class ProjectService:
 
     @staticmethod
     def create_project(data, user_id):
+        
+        error = validate_input(data,['name', 'description',])
+        
+        if error:
+            if error:
+                return {"status": "invalid", "message": error}
         project = Project(
             name=data['name'],
             description=data['description'],

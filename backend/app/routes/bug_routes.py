@@ -5,6 +5,7 @@ from app.models.projects import Project
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app.routes.auth import require_role
 from app.services.bugs_service import BugService
+from app.utils.validators import validate_input,validate_enum_input
 
 bugs_bp = Blueprint('bugs', __name__, url_prefix='/api/bugs')
 
@@ -58,7 +59,9 @@ def create_bug():
     data = request.get_json()
     user_id = int(get_jwt_identity())
     
-
+    error = validate_input(data, ['title', 'project_id'])
+    if error:
+        return {"status": "invalid", "message": error}
     if not data or not data.get('title') or not data.get('project_id'):
         return jsonify({"message": "title and project_id are required"}), 400
 

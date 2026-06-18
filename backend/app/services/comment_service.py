@@ -1,12 +1,17 @@
 from app.models.bugs import Bug
 from app.models.comments import Comment
 from app import db
+from app.utils.validators import validate_enum_input,validate_input
 
 
 class CommentService:
     
     @staticmethod
     def add_comment(data, bug_id, user_id):
+        
+        error = validate_input(data, ['content'])
+        if error:
+            return {"status": "invalid", "message": error}
         bug = db.session.get(Bug, bug_id)
         if bug is None:
             return {'status': 'not_found'}
@@ -26,7 +31,6 @@ class CommentService:
      
     @staticmethod    
     def list_attempts(bug_id):
-    
         comments = Comment.query.filter_by(bug_id=bug_id).order_by(Comment.created_at.asc()).all()
                 
         return  [c.to_dict() for c in comments]

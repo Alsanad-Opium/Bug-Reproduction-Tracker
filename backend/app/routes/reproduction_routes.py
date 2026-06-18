@@ -3,6 +3,7 @@ from app.routes.auth import require_role
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.reproduction import ReproductionAttempt
 from app.services.reproduction_service import ReproductionService
+from app.utils.validators import validate_enum_input
 
 
 repo_bp = Blueprint('reproduction',__name__,url_prefix = "/api/bugs") #We reuse /api/bugs as the prefix intentionally. Reproduction attempts belong to a bug, so the URLs read naturally — /api/bugs/1/attempts, /api/bugs/1/score. It makes the API self-documenting.
@@ -12,10 +13,12 @@ repo_bp = Blueprint('reproduction',__name__,url_prefix = "/api/bugs") #We reuse 
 @jwt_required()
 def log_attempt(bug_id):
     
-   
     user_id = int(get_jwt_identity())
     data = request.get_json()
-    
+    error = validate_enum_input(data,'result',['REPRODUCED', 'NOT_REPRODUCED'] )
+    if error:
+        return jsonify({"message": error}), 400
+        
     result = ReproductionService.log_attempt(data,bug_id,user_id )
     if  result['status'] == "not_found":
         return jsonify({
