@@ -14,12 +14,16 @@ bugs_bp = Blueprint('bugs', __name__, url_prefix='/api/bugs')
 @require_role('ADMIN', 'TESTER')
 def get_all_bugs():
     user_id = int(get_jwt_identity())
-    result = BugService.get_all_bugs(user_id)
+    
+    page = request.args.get('page',1,type = int)
+    per_page = request.args.get('per_page',10,type = int)
+    
+    result = BugService.get_all_bugs(user_id,page,per_page)
     
     if result['status'] == "Not_found" :
         return jsonify({"message": "No bugs found"}), 404
     
-    return jsonify( result), 200
+    return jsonify( result['data']), 200
 
 
 @bugs_bp.route('/debug', methods=['GET'], strict_slashes=False)
