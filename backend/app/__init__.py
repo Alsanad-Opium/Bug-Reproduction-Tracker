@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate  import Migrate
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
+import click
 
 
 
@@ -31,6 +32,7 @@ def create_app():
     from app.routes.auth import auth_bp
     from app.routes.reproduction_routes import repo_bp
     from app.routes.comment_route import comment_bp
+    from app.routes.user_routes import user_bp
     
     app.register_blueprint(project_bp)
     app.register_blueprint(ping_bp)
@@ -38,6 +40,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(repo_bp)
     app.register_blueprint(comment_bp)
+    app.register_blueprint(user_bp)
     
     @app.errorhandler(400)
     def bad_request(e):
@@ -55,4 +58,26 @@ def create_app():
     def internal_error(e):
         db.session.rollback()
         return jsonify({"message": "An unexpected error occurred"}), 500
+    
+    
+       
+
+    @app.cli.command("create-admin")
+    @click.argument("name")
+    @click.argument("email")
+    @click.argument("password")
+    def create_admin(name, email, password):
+        """Create an admin user. Run once during initial setup."""
+        from app.models.users import User
+        
+        existing = User.query.filter_by(email=email).first()
+        if existing:
+            print(f"User with email {email} already exists.")
+            return
+        
+        admin = User(name=name, email=email, role='ADMIN')
+        admin.set_password(password)
+        db.session.add(admin)
+        db.session.commit()
+        print(f"Admin user '{name}' created successfully.")
     return app

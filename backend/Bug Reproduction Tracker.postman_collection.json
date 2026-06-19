@@ -11,7 +11,7 @@
       "name": "Auth",
       "item": [
         {
-          "name": "register",
+          "name": "register_admin",
           "request": {
             "method": "POST",
             "header": [],
@@ -124,6 +124,146 @@
               "path": [
                 "auth",
                 "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "developer_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"DevUser\",\r\n    \"email\": \"dev@test.com\",\r\n    \"password\": \"password123\",\r\n    \"role\": \"DEVELOPER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/auth/register",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "test_user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"TestUser\",\r\n    \"email\": \"tester@test.com\",\r\n    \"password\": \"password123\",\r\n    \"role\": \"TESTER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/auth/register",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "admin_test_login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"SneakyUser\",\r\n    \"email\": \"sneaky@test.com\",\r\n    \"password\": \"password123\",\r\n    \"role\": \"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/auth/register",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "promote_user",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"role\": \"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/users/3/role",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "users",
+                "3",
+                "role"
               ]
             }
           },
@@ -877,14 +1017,14 @@
       "name": "User_lifecycle",
       "item": [
         {
-          "name": "Create_bug",
+          "name": "create_project",
           "request": {
             "auth": {
               "type": "bearer",
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -893,7 +1033,92 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"Search results not paginating\",\r\n    \"description\": \"Only first 10 results show regardless of total count\",\r\n    \"project_id\": 1,\r\n    \"steps_to_reproduce\": [\r\n        \"Go to search page\",\r\n        \"Search for a common term\",\r\n        \"Scroll to bottom of results\"\r\n    ],\r\n    \"expected_result\": \"Pagination controls appear, allowing next page\",\r\n    \"actual_result\": \"No pagination controls, list just ends\",\r\n    \"environment_os\": \"Windows 11\",\r\n    \"environment_browser\": \"Firefox\",\r\n    \"environment_version\": \"126.0\"\r\n}",
+              "raw": "{\r\n    \"name\": \"Regression Test Project\",\r\n    \"description\": \"End-to-end test of the full BRT system\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/projects",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list_project",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/projects?page=1&per_page=3",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "projects"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create_bug",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Export to CSV produces empty file\",\r\n    \"description\": \"Clicking Export generates a 0kb file\",\r\n    \"project_id\": 5,\r\n    \"steps_to_reproduce\": [\r\n        \"Go to reports page\",\r\n        \"Apply any filter\",\r\n        \"Click Export to CSV\"\r\n    ],\r\n    \"expected_result\": \"CSV file with filtered data downloads\",\r\n    \"actual_result\": \"Empty CSV file downloads\",\r\n    \"environment_os\": \"macOS Sonoma\",\r\n    \"environment_browser\": \"Safari\",\r\n    \"environment_version\": \"17.4\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -926,7 +1151,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -935,7 +1160,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"result\": \"NOT_REPRODUCED\",\r\n    \"note\": \"Pagination worked fine for me on Firefox 126\"\r\n}",
+              "raw": "{\r\n    \"result\": \"REPRODUCED\",\r\n    \"note\": \"Confirmed on Safari with date range filter applied\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -943,7 +1168,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:5000/api/bugs/4/attempt",
+              "raw": "http://127.0.0.1:5000/api/bugs/5/attempt",
               "protocol": "http",
               "host": [
                 "127",
@@ -955,7 +1180,7 @@
               "path": [
                 "api",
                 "bugs",
-                "4",
+                "5",
                 "attempt"
               ]
             }
@@ -970,7 +1195,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -979,7 +1204,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"content\": \"Tried on Firefox 126 and pagination works. Can you confirm your screen resolution and zoom level?\"\r\n}",
+              "raw": "{\r\n    \"content\": \"Looks like it's specific to date-range filters — can someone confirm with other filter types?\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1014,7 +1239,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1022,7 +1247,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://127.0.0.1:5000/api/bugs/4/score",
+              "raw": "http://127.0.0.1:5000/api/bugs/5/score",
               "protocol": "http",
               "host": [
                 "127",
@@ -1034,8 +1259,52 @@
               "path": [
                 "api",
                 "bugs",
-                "4",
+                "5",
                 "score"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"IN_PROGRESS\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/6/status",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "6",
+                "status"
               ]
             }
           },
@@ -1083,7 +1352,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc4MTUxNjI5OSwianRpIjoiZjE4ODA3MjMtNTAyYy00YWZkLTgyMGYtYWU2MWFjMmRiYWFkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3ODE1MTYyOTksImNzcmYiOiJmN2EyYTYyNi02NzQ0LTRlYmQtOTk3OS02MjYzMzc0YjM2ZmYiLCJleHAiOjE3ODE1MTk4OTksInJvbGUiOiJBRE1JTiJ9.xT7qkVpkt25XiG6-3jvaWbPbDMCKUKxOEdzW5hCpkA8",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1171,7 +1440,23 @@
           "name": "test3",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/bugs/this-is-not-a-real-route",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "bugs",
+                "this-is-not-a-real-route"
+              ]
+            }
           },
           "response": []
         }

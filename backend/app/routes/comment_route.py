@@ -23,7 +23,7 @@ def add_comment(bug_id):
         }),404
     
     if result['status'] == "invalid":
-        return jsonify({'message': "Content not Found"})
+        return jsonify({'message': "Content not Found"}),400
     
     return jsonify({'message':"The comment was added",
                     'comment': result['comment']

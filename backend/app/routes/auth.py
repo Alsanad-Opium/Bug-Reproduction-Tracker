@@ -42,11 +42,12 @@ def register():
     if existing_email or existing_username:
         return jsonify({"message": "Email or username already exists"}),409
 
-    valid_roles = ['ADMIN', 'DEVELOPER', 'TESTER']
+    allowed_self_service_roles = ['TESTER', 'DEVELOPER']
     role = data.get('role', 'TESTER')
+
+    if role not in allowed_self_service_roles:
+        return jsonify({"message": "role must be TESTER or DEVELOPER"}), 400
     
-    if role not in valid_roles:
-        return jsonify({'message': "Invalid role"}),400
     user = User(name = data['name'],
                 email= data['email'],
                 role = role)
@@ -56,7 +57,7 @@ def register():
     db.session.add(user)
     db.session.commit()
     
-    return jsonify({'message': "User Registered Successfully"}),201
+    return jsonify({'message': "User Registered Successfully",'user':user.to_dict()}),201
     
     
 @auth_bp.route('/login/', methods = ['POST'])
@@ -78,7 +79,7 @@ def login():
     return jsonify({
                     'access_token': access_token,
                     'message': "Login successful",
-                    'user': user.to_dict() }), 200
+                    'user': user.to_dict() }), 200   
     
 @auth_bp.route('/me',methods = ['GET'])
 @jwt_required()
