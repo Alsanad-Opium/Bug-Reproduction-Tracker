@@ -75,7 +75,7 @@ class BugService:
         db.session.add(bug)
         db.session.commit()
 
-        return {"status": "Success", "bug": bug.to_dict()}
+        return {"status": "success", "bug": bug.to_dict()}
     
     @staticmethod
     def update_bug_status(data,bug_id):
@@ -92,7 +92,7 @@ class BugService:
         bug.status = data["status"]
         db.session.commit()
 
-        return {'status': 'Success',"message": "Bug status updated successfully", "bug": bug.to_dict()}
+        return {'status': 'success',"message": "Bug status updated successfully", "bug": bug.to_dict()}
 
     @staticmethod
     def update_bug_priority(data, bug_id):

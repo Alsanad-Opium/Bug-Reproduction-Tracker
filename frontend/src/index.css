@@ -1,0 +1,511 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+:root {
+  /* Color System */
+  --paper: #F7F4EC;
+  --paper-line: #E5DFC9;
+  --ink: #21201C;
+  --ink-muted: #6A675B;
+  --stamp: #B5491F;
+  --verified: #3D6B4C;
+  --unverified: #A33A2E;
+  
+  /* Typography System */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Borders & Shadows */
+  --border-width: 1.5px;
+  --border: var(--border-width) solid var(--ink);
+  --shadow-offset: 6px;
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  background-image: 
+    linear-gradient(var(--paper-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--stamp);
+}
+
+input, textarea, select {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: var(--ink);
+  border: var(--border);
+  padding: 8px 12px;
+  outline: none;
+  border-radius: 0;
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  background-color: rgba(229, 223, 201, 0.3);
+}
+
+button {
+  cursor: pointer;
+  border-radius: 0;
+}
+
+/* Section Hierarchy Pattern */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--stamp);
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.section-subtext {
+  font-family: var(--font-body);
+  color: var(--ink-muted);
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+/* Base Layout Container */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Surface System (Case Files / Cards) */
+.case-card {
+  background-color: var(--paper);
+  border: var(--border);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
+  padding: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.case-card.angled {
+  transform: rotate(0.6deg);
+}
+
+.case-card:hover {
+  transform: translate(-2px, -2px) rotate(0.4deg);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.case-card.flat:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+/* Form layout card */
+.form-card {
+  background-color: var(--paper);
+  border: var(--border);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 32px;
+  margin-top: 24px;
+}
+
+/* Official Button Metaphor */
+.btn-stamp {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  background-color: var(--ink);
+  color: var(--paper);
+  border: var(--border);
+  box-shadow: 4px 4px 0 var(--stamp);
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-stamp:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--stamp);
+  color: var(--paper);
+}
+
+.btn-stamp:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0 var(--stamp);
+}
+
+.btn-stamp-secondary {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  background-color: transparent;
+  color: var(--ink);
+  border: var(--border);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-stamp-secondary:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+  color: var(--ink);
+}
+
+.btn-stamp-secondary:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0 var(--ink);
+}
+
+.btn-danger {
+  box-shadow: 4px 4px 0 var(--unverified);
+}
+
+.btn-danger:hover {
+  box-shadow: 2px 2px 0 var(--unverified);
+}
+
+/* Exhibit Grid (Feature system) */
+.exhibit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: var(--border);
+  border-left: var(--border);
+  gap: 0;
+  margin-top: 32px;
+}
+
+.exhibit-cell {
+  border-right: var(--border);
+  border-bottom: var(--border);
+  padding: 32px 24px;
+  background-color: var(--paper);
+  transition: background-color 0.2s ease;
+}
+
+.exhibit-cell:hover {
+  background-color: rgba(229, 223, 201, 0.2);
+}
+
+/* Lifecycle Component */
+.lifecycle-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0;
+  width: 100%;
+}
+
+.lifecycle-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  padding: 12px;
+  border: 1.5px dashed var(--ink-muted);
+  background-color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  margin: 0 8px;
+}
+
+.lifecycle-step.active {
+  border: var(--border);
+  border-color: var(--stamp);
+  font-weight: 700;
+  color: var(--stamp);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.lifecycle-step.completed {
+  border: var(--border);
+  border-color: var(--verified);
+  color: var(--verified);
+  font-weight: 700;
+}
+
+/* Ledger / API Section (2-column asymmetrical) */
+.ledger-section {
+  display: grid;
+  grid-template-columns: 4.5fr 7.5fr;
+  gap: 32px;
+  margin-top: 48px;
+  align-items: stretch;
+}
+
+.ledger-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ledger-right {
+  font-family: var(--font-mono);
+  background-color: var(--ink);
+  color: #D2CDBC;
+  padding: 24px;
+  border: var(--border);
+  box-shadow: 6px 6px 0 var(--stamp);
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+/* Stamp System */
+.stamp-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.verdict-stamp {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  padding: 4px 16px;
+  text-transform: uppercase;
+  display: inline-block;
+  border: 3px double;
+  transform: rotate(-3deg);
+  opacity: 0.9;
+  border-radius: 4px;
+  user-select: none;
+  animation: stampIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.verdict-stamp.verified {
+  color: var(--verified);
+  border-color: var(--verified);
+}
+
+.verdict-stamp.unverified {
+  color: var(--unverified);
+  border-color: var(--unverified);
+}
+
+.verdict-stamp.pending {
+  color: var(--stamp);
+  border-color: var(--stamp);
+}
+
+.badge-pill-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border: var(--border);
+  display: inline-block;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.badge-pill-mono.priority-high {
+  background-color: rgba(163, 58, 46, 0.1);
+  color: var(--unverified);
+  border-color: var(--unverified);
+}
+
+.badge-pill-mono.priority-critical {
+  background-color: var(--unverified);
+  color: var(--paper);
+  border-color: var(--unverified);
+}
+
+.badge-pill-mono.priority-medium {
+  background-color: rgba(181, 73, 31, 0.1);
+  color: var(--stamp);
+  border-color: var(--stamp);
+}
+
+.badge-pill-mono.priority-low {
+  color: var(--ink-muted);
+  border-color: var(--ink-muted);
+}
+
+/* Animations */
+@keyframes stampIn {
+  0% {
+    transform: scale(3) rotate(-15deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(-3deg);
+    opacity: 0.9;
+  }
+}
+
+/* Header & Navigation Styles */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247, 244, 236, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--border);
+  padding: 16px 0;
+}
+
+.navbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.navbar-logo span {
+  color: var(--stamp);
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  align-items: center;
+}
+
+.navbar-link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.navbar-link:hover, .navbar-link.active {
+  color: var(--stamp);
+  border-bottom: 2px solid var(--stamp);
+}
+
+/* Forms general */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.form-steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-step-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-step-num {
+  font-family: var(--font-mono);
+  width: 24px;
+  text-align: right;
+}
+
+/* Checklist step items */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--paper-line);
+}
+
+.checklist-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: var(--border);
+  margin-top: 2px;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .exhibit-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .lifecycle-tracker {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .lifecycle-step {
+    margin: 0;
+  }
+  
+  .ledger-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
