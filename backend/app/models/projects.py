@@ -11,8 +11,8 @@ class Project(db.Model):
     
     description = db.Column(db.Text, nullable = True)
     
-    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
-    owner = db.relationship("User", back_populates="projects")
+    team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable = False)
+    team = db.relationship("Team", back_populates="projects")
     bugs = db.relationship(
     "Bug",
     backref="project",
@@ -27,7 +27,7 @@ class Project(db.Model):
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "owner_id": self.owner_id,
+            "team_id": self.team_id,
             "created_at": self.created_at.isoformat(),
         }
 

@@ -12,8 +12,8 @@ class Team(db.Model):
     
     created_at = db.Column(db.DateTime, nullable = False, default = datetime.now(timezone.utc))
     
-    memeberships = db.relatioship('TeamMembership', back_populates = 'team', lazy = True, cascade = 'all, delete-orphan')
-    projects = db.Column('Project', back_populates = 'team', lazy =True, cascade = 'all, delete-orphan')
+    memeberships = db.relationship('TeamMembership', back_populates = 'team')
+    projects = db.relationship('Project', back_populates = 'team', lazy =True, cascade = 'all, delete-orphan')
     
     
     def to_dict(self):
@@ -22,7 +22,7 @@ class Team(db.Model):
             'name' :self.name,
             'description': self.description,
             'member_count' : len(self.memberships),
-            'created_at': self.created_at
+            'created_at': self.created_at.isoformat()
         }
         
 
@@ -33,8 +33,8 @@ class TeamMembership(db.Model):
     
     id = db.Column(db.Integer, primary_key = True)
     
-    team_id = db.Column(db.Integer, ForeignKey = 'teams.id')
-    user_id = db.Column(db.Integer, ForeignKey = 'users.id')
+    team_id = db.Column(db.Integer, db.ForeignKey('teams.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     role = db.Column(db.Enum('OWNER', 'MEMBER',name = 'team_role'), nullable = False, default = 'Member')
     
@@ -44,7 +44,7 @@ class TeamMembership(db.Model):
     user = db.relationship('User', back_populates= 'team_memberships')
     
     
-    __table_args__ =( db.UniqueConstraintss('team_id','user_id',name = 'uq_team_user'))# this will make sure at the db level no same user is added twice to the same project
+    __table_args__ =(db.UniqueConstraint('team_id','user_id',name = 'uq_team_user'),)# this will make sure at the db level no same user is added twice to the same project
     
     
     def to_dict(self):
@@ -55,5 +55,5 @@ class TeamMembership(db.Model):
             'user_id':self.user_id,
             'user':self.user.name,
             'role':self.role,
-            'joined_at':self.joined_at
+            'joined_at':self.joined_at.isoformat()
         }

@@ -10,10 +10,11 @@ class User(db.Model):
     password_hash = db.Column(db.String(225),nullable = False)
     role = db.Column(db.Enum('ADMIN', 'DEVELOPER', 'TESTER', name = 'user_roles'), nullable =False, default = 'TESTER')
     #  Projects owned by user
-    projects = db.relationship(
-        "Project",
+    team_membership = db.relationship(
+        "TeamMembership",
         back_populates="owner",
-        lazy=True
+        lazy=True,
+        cascade = 'all, delete-orphan'
     )
     # Bugs assigned to user
     assigned_bugs = db.relationship(
@@ -36,7 +37,7 @@ class User(db.Model):
             "name": self.name,
             "email": self.email,
             "role": self.role,
-            "projects": [p.id for p in self.projects],
+            "teams": [t.id for t in self.team_membership],
             "assigned_bugs": [b.id for b in self.assigned_bugs],
             "created_at": self.created_at.isoformat()
         }
