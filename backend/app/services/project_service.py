@@ -1,6 +1,6 @@
 from app.models.projects import Project
 from app import db
-from app.utils.validators import validate_input,validate_enum_input
+from app.utils.validators import validate_input
 
 class ProjectService:
 
